@@ -1,0 +1,33 @@
+Какие данные у меня будут:
+
+1) Пользователь:
+	У пользователя 7 таблиц и 1 связывающая 
+		1.1 user_unik_id			- id_users
+		1.2 hash_auth_private_key	- hash_auth, id_users=(F 1.1)
+		1.3 user_info				- name, surname, id_users=(F 1.1)
+		1.4 user_auth_save_info		- ip_auth, useragent, width, height, unik_id_browser, id_users=(F 1.1)
+		1.5 user_auth_info			- login, password, id_users=(F 1.1)
+		1.6 user_arhive_password	- old_password, id_users=(F 1.1)
+		1.7 user_arhive_info_create	- create_info_json, id_users=(F 1.1)
+2) Компании:
+	У компании 3 таблицы и 1 связывающая 
+		2.1 company_unik_id 	- id_company
+		2.2 company_info 		- title_company, status_company, inn_company(NULL), id_company=(F 2.1)
+		2.3 company_other_info	- other_info, id_company=(F 2.1)
+		
+3) Сделки
+	У сделок 3 таблицы
+		3.1 deal_unik_id	- id_deal
+		3.2 deal_us_com		- id_users=(F 1.1), id_company=(F 2.1), id_deal=(F 3.1)
+		3.2 deal_status		- status_deal, id_deal=(F 3.1)
+		3.2 deal_info		- other_info_deal, id_deal=(F 3.1)
+
+	
+	
+связывающие таблицы
+	-----------------------
+	1.1 employee_company - id_connection_employee, id_users=(F 1.1), id_company
+	1.2 employee_title_job- job_title, id_connection_employee=(F 1.1)
+	-----------------------
+
+		status_company, inn_company(NULL)
