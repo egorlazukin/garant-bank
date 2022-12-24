@@ -62,9 +62,9 @@ class DBDeal extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('deal_unik_id');
 		Schema::dropIfExists('deal_us_com');
 		Schema::dropIfExists('deal_status');
 		Schema::dropIfExists('deal_info');
+		Schema::dropIfExists('deal_unik_id');
     }
 }

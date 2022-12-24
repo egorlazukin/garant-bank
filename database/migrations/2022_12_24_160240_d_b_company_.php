@@ -45,8 +45,8 @@ class DBCompany extends Migration
     public function down()
     {
         //
-		Schema::dropIfExists('company_unik_id');
 		Schema::dropIfExists('company_info');
 		Schema::dropIfExists('company_other_info');
+		Schema::dropIfExists('company_unik_id');
     }
 }
