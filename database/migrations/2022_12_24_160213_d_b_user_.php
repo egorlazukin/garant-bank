@@ -25,7 +25,6 @@ class DBUser extends Migration
 				$table->engine = 'MEMORY';
 				$table->id();
 				$table->bigInteger('id_users')->unsigned()->index()->nullable();
-				$table->foreign('id_users')->references('id')->on('user_unik_id')->onDelete('cascade');
 				$table->string('hash_login')->nullable();
 				$table->timestamps();
 			}); 
