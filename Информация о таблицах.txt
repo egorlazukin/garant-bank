@@ -27,5 +27,5 @@
 связывающие таблицы
 	-----------------------
 	1.1 employee_company - id_connection_employee, id_users=(F 1.1), id_company
-	1.2 employee_title_job- job_title, id_connection_employee=(F 1.1)
+	1.2 employee_title_job - job_title, id_connection_employee=(F 1.1)
 	-----------------------
