@@ -14,6 +14,27 @@ class DBCompany extends Migration
     public function up()
     {
         //
+		if (Schema::hasTable('company_unik_id') == false)
+			Schema::create('company_unik_id', function (Blueprint $table) {
+					$table->id();
+			});  
+		if (Schema::hasTable('company_info') == false)
+			Schema::create('company_info', function (Blueprint $table) {
+				$table->id();
+				$table->string('status_company')->nullable();
+				$table->string('inn_company')->nullable();
+				$table->bigInteger('id_company')->unsigned()->index()->nullable();
+				$table->foreign('id_company')->references('id')->on('company_unik_id')->onDelete('cascade');
+				$table->timestamps();
+			}); 
+		if (Schema::hasTable('company_other_info') == false)
+			Schema::create('company_other_info', function (Blueprint $table) {
+				$table->id();
+				$table->string('other_info')->nullable();
+				$table->bigInteger('id_company')->unsigned()->index()->nullable();
+				$table->foreign('id_company')->references('id')->on('company_unik_id')->onDelete('cascade');
+				$table->timestamps();
+			}); 
     }
 
     /**
@@ -24,5 +45,8 @@ class DBCompany extends Migration
     public function down()
     {
         //
+		Schema::dropIfExists('company_unik_id');
+		Schema::dropIfExists('company_info');
+		Schema::dropIfExists('company_other_info');
     }
 }

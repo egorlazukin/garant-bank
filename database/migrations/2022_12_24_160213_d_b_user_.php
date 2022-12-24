@@ -22,6 +22,7 @@ class DBUser extends Migration
 		
 		if (Schema::hasTable('hash_auth_private_key') == false)
 			Schema::create('hash_auth_private_key', function (Blueprint $table) {
+				$table->engine = 'MEMORY';
 				$table->id();
 				$table->bigInteger('id_users')->unsigned()->index()->nullable();
 				$table->foreign('id_users')->references('id')->on('user_unik_id')->onDelete('cascade');
@@ -80,6 +81,11 @@ class DBUser extends Migration
      */
     public function down()
     {
-        //
+		Schema::dropIfExists('user_unik_id');
+		Schema::dropIfExists('hash_auth_private_key');
+		Schema::dropIfExists('user_info');
+		Schema::dropIfExists('user_auth_save_info');
+		Schema::dropIfExists('user_auth_info');
+		Schema::dropIfExists('user_arhive_password');
     }
 }
