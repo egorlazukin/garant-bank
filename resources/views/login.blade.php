@@ -35,7 +35,7 @@
     <body class="antialiased">
         <center>
 			<div style="width: 200px;">
-				<div style="margin-bottom: 10px">
+				<div style="margin-bottom: 10px; margin-top: 10px">
 					<label>Логин</label><br>
 					<input class="Input_Auth" placeholder="Логин"><br>
 					<label>Пароль</label><br>

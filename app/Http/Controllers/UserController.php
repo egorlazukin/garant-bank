@@ -11,9 +11,40 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($login, $password)
     {
-        //
+		return \App\Models\User::get_user_hash($login, $password);
+    }
+	
+    public function index_hash($hash)
+    {
+		return \App\Models\User::get_user_hash_chek($hash);
+    }
+	
+    public function Api_CheckPassword(Request $request)
+    {
+		if($request['name'] == "" || $request['password'] == "")
+		{
+			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
+		}
+		$cookie = UserController::index($request['name'], $request['password']);
+		if($cookie == null)
+			return json_encode(["error"=>"403", "message"=>"User is not found"]);
+		else
+			return $cookie;
+    }
+	
+    public function Api_CheckHash(Request $request)
+    {
+		if($request['hash'] == "")
+		{
+			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
+		}
+		$cookie = UserController::index_hash($request['hash']);
+		if($cookie == null)
+			return json_encode(["error"=>"403", "message"=>"User is not found"]);
+		else
+			return $cookie;
     }
 
     /**

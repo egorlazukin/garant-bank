@@ -59,7 +59,6 @@ class DBUser extends Migration
 				$table->foreign('id_users')->references('id')->on('user_unik_id')->onDelete('cascade');
 				$table->string('login')->nullable();
 				$table->string('password')->nullable();
-				$table->string('unik_id_browser')->nullable();
 				$table->timestamps();
 			}); 
 			
