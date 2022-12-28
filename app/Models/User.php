@@ -32,6 +32,7 @@ class User extends Authenticatable
 	
 	public static function get_user_hash_chek($hash)
 	{
+		
 		$hash_chek = DB::table('hash_auth_private_key') ->select('id_users') -> where('hash_login', '=', $hash) ->get();
 		
 		if($hash_chek == "[]")
