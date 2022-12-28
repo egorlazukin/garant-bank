@@ -31,15 +31,67 @@
 				font-size: 14pt;
 			}
 		</style>
+		
+		<script>
+			~async function() {
+
+				 document.cookie.split(';').forEach(element =>
+				{
+					async function green() {
+						if(element.split('=')[0] == " cookieID")
+						{
+							var url = "/api/auth/hash/?hash=" + element.split('=')[1]
+							let response = await fetch(url);
+							if (response.ok) {
+								let json = await response.json();
+								if(json['error'] == "200")
+								{
+									//все гуд, пропускаем
+									document.location.href = "account/"
+								}
+							}
+						}
+					}
+					green()
+				});
+			}()
+			
+			async function ChekerAuth()
+			{
+				var url = "/api/auth/v1/?name=" + document.getElementById('login').value + "&password=" + document.getElementById('password').value
+				let response = await fetch(url);
+				if (response.ok) { // если HTTP-статус в диапазоне 200-299
+					// получаем тело ответа (см. про этот метод ниже)
+					let json = await response.json();
+					if(json['error'] == "403")
+					{
+						document.getElementById('alert').innerHTML = json['message']
+					}
+					else
+					if (json['error'] == "200")
+					{
+						document.getElementById('alert').innerHTML = "Login was successful"
+						document.getElementById('alert').style.color = "green"
+						document.cookie = "cookieID=" + json['cookieID']
+						document.location.href = "account/"
+					}
+				} else {
+					alert("Ошибка HTTP: " + response.status);
+				}
+			}
+		</script>
     </head>
     <body class="antialiased">
         <center>
 			<div style="width: 200px;">
+				<div>
+					<label id="alert" style="color: red"></label>
+				</div>
 				<div style="margin-bottom: 10px; margin-top: 10px">
 					<label>Логин</label><br>
-					<input class="Input_Auth" placeholder="Логин"><br>
+					<input class="Input_Auth" name="name" id="login" placeholder="Логин"><br>
 					<label>Пароль</label><br>
-					<input class="Input_Auth" placeholder="Пароль" name="password" type="password">
+					<input class="Input_Auth" placeholder="Пароль" id="password" name="password" type="password">
 				</div>
 				<input type="submit" class="Butt_Auth" onclick="ChekerAuth()">
 			</div>
