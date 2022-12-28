@@ -16,10 +16,6 @@ class UserController extends Controller
 		return \App\Models\User::get_user_hash($login, $password);
     }
 	
-    public function index_id_info($id)
-	{
-		return \App\Models\User::get_user_info($id);
-	}
     public function index_hash($hash)
     {
 		return \App\Models\User::get_user_hash_chek($hash);
@@ -67,15 +63,28 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id)
+    public function get_user_info($id)
     {
         if($id == "")
 		{
 			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
 		}
-		$user_info = UserController::index_id_info($id);
+		$user_info = \App\Models\User::get_user_info($id);
 		if($user_info == null)
 			return json_encode(["error"=>"403", "message"=>"User is not found"]);
+		else
+			return $user_info;
+    }
+	
+    public function get_user_all($limit, $offset)
+    {
+        if($limit == "")
+		{
+			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
+		}
+		$user_info = \App\Models\User::get_user_list($limit, $offset);
+		if($user_info == null)
+			return json_encode(["error"=>"403", "message"=>"Users is not found"]);
 		else
 			return $user_info;
     }

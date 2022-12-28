@@ -42,6 +42,16 @@ class User extends Authenticatable
 		
 	}
 	
+	public static function get_user_list($limit, $offset)
+	{
+		$user_info[] = DB::table('user_info') ->select('id', 'name', 'surname') ->skip($offset)->take($limit) ->get();
+		
+		if($user_info == "[]")
+			return json_encode(["error"=>"403", "message"=>"The entered id is not correct"]);
+		
+		return json_encode(['error'=>'200', 'message'=>$user_info[0]]);
+	}
+	
 	public static function get_user_info($id)
 	{
 		
