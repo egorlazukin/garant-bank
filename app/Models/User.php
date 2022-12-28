@@ -42,6 +42,18 @@ class User extends Authenticatable
 		
 	}
 	
+	public static function get_user_info($id)
+	{
+		
+		$user_info = DB::table('user_info') ->select('name', 'surname') -> where('id_users', '=', $id) ->get();
+		
+		if($user_info == "[]")
+			return json_encode(["error"=>"403", "message"=>"The entered id is not correct"]);
+		
+		return json_encode(['error'=>'200', 'message'=>$user_info[0]]);
+		
+	}
+	
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
