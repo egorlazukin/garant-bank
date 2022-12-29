@@ -62,6 +62,16 @@ class DBUser extends Migration
 				$table->timestamps();
 			}); 
 			
+		if (Schema::hasTable('user_contact_info') == false)
+			Schema::create('user_auth_info', function (Blueprint $table) {
+				$table->id();
+				$table->bigInteger('id_users')->unsigned()->index()->nullable();
+				$table->foreign('id_users')->references('id')->on('user_unik_id')->onDelete('cascade');
+				$table->string('email')->nullable();
+				$table->string('numphone')->nullable();
+				$table->timestamps();
+			}); 
+			
 		if (Schema::hasTable('user_arhive_password') == false)
 			Schema::create('user_arhive_password', function (Blueprint $table) {
 				$table->id();
