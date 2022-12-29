@@ -19,7 +19,6 @@ class User extends Authenticatable
 		
 		$id_users = json_decode($password_hash, true)[0]['id_users'];
 		$password_hash = json_decode($password_hash, true)[0]['password'];
-			
 		if (password_verify($password, $password_hash)) {
 			$guid = SecurityModels::generateHash_Auth($id_users);
 			return json_encode(["error"=>"200", "message"=>"Successfully", "cookieID" => $guid[0]['guid']]);
@@ -37,9 +36,7 @@ class User extends Authenticatable
 		
 		if($hash_chek == "[]")
 			return json_encode(["error"=>"403", "message"=>"The entered hash is not correct"]);
-		
-		return json_encode(['error'=>'200', 'message'=>'token_valide']);
-		
+		return json_encode(['error'=>'200', 'message'=>'token_valide', "userID"=>json_decode($hash_chek, true)[0]['id_users']]);
 	}
 	
 	public static function get_user_list($limit, $offset)
