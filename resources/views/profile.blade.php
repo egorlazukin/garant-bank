@@ -34,17 +34,53 @@
 				color: blue;
 			}
 		</style>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
     </head>
     <body class="antialiased">
-		<? view('header'); ?>
 		<center>
-			<div>
-				<label id="name"></label>
-				<label id="surname"></label>
-				<a href="/deal">Мои сделки (<label id="count_deal">0</label>)</a><br>
-				<a href="/deal_success">Успешные сделки (<label id="count_success">0</label>)</a><br>
-				<a href="/deal_canceled">Отмененные сделки (<label id="count_canceled">0</label>)</a>
-			</div>
+			Привет <label id="name"></label> <label id="surname"></label>.
+		<br>
+		<div>
+			<button class="btn btn-primary btn-sm" href="/deal">Мои сделки (<label id="deal_all">0</label>)</button>
+			<button class="btn btn-primary btn-sm" href="/deal_success">Успешные сделки (<label id="deal_status_done">0</label>)</button>
+			<button class="btn btn-primary btn-sm" href="/deal_canceled">Ожидается выполнение сделки (<label id="deal_status_expected">0</label>)</button>
+			<button class="btn btn-primary btn-sm" href="/deal_canceled">Отмененные сделки (<label id="deal_status_canceled">0</label>)</button>
+			<button class="btn btn-primary btn-sm" href="/deal_canceled">Ожидающие отмены сделки (<label id="deal_status_waiting">0</label>)</button>
+			<button class="btn btn-primary btn-sm" href="/deal_canceled">Приостановленные сделки (<label id="deal_status_suspended">0</label>)</button>
+		</div>
 		</center>
+		<script>
+			async function green(element) {
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID")
+				{
+					var url = "/api/auth/hash/?hash=" + element.split('=')[1]
+					let response = await fetch(url);
+					if (response.ok) {
+						let json = await response.json();
+						if(json['error'] == "200")
+						{
+							var urls = "/api/deal/info_profile/" + json['userID']
+							let responser = await fetch(urls);
+							if (responser.ok) {
+								
+								let texter = await responser.json();
+								if(texter['error'] == "200")
+								{
+									deal_status_canceled.innerHTML = texter['deal_status_canceled']
+									deal_status_done.innerHTML = texter['deal_status_done']
+									deal_status_expected.innerHTML = texter['deal_status_expected']
+									deal_status_waiting.innerHTML = texter['deal_status_waiting']
+									deal_status_suspended.innerHTML = texter['deal_status_suspended']
+									deal_all.innerHTML = texter['deal_all']
+								}
+							}
+						}
+					}
+				}
+			}
+			document.cookie.split(';').forEach(element =>{  green(element)});
+		</script>
     </body>
 </html>
