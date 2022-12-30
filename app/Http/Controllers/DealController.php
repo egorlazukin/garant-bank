@@ -12,13 +12,26 @@ class DealController extends Controller
      * @return \Illuminate\Http\Response
      */
 	
-    public function getUserInfo($id)
+    public function getUserInfo($id, Request $request)
     {
 		if($id == "")
 		{
 			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
 		}
 		$userDealArray = \App\Models\DealModels::getUserInfo($id);
+		if($userDealArray == null)
+			return json_encode(["error"=>"403", "message"=>"User is not found"]);
+		else
+			return $userDealArray;
+    }
+	
+    public function getAllDeal(Request $request)
+    {
+		if($request['hash']	== "")
+		{
+			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
+		}
+		$userDealArray = \App\Models\DealModels::getListDeal($_GET['hash'], "0");
 		if($userDealArray == null)
 			return json_encode(["error"=>"403", "message"=>"User is not found"]);
 		else

@@ -40,8 +40,23 @@ class DealModels extends Model
 			"deal_status_suspended" => $deal_status_suspended,
 		]);
 	}
-	public function getListDeal()
+	public function getListDeal($hash, $type)
 	{
-		
+		$arr = json_decode(\App\Models\User::get_user_hash_chek($hash), true);
+		if($arr['error'] == "403")
+		{
+			return json_encode(["error"=>'403', "message"=>"The entered hash is not correct"]);
+		}
+		$id = $arr['userID'];
+		if($type == "0")
+		{
+			$deal_status_done=[];
+			$deal_status_all =  DB::table('deal_us_com') -> where('id_users', '=', $id) -> get();
+			foreach ($deal_status_all as &$value) {
+				$id_company = json_decode(json_encode($value), true)['id_company'];
+				$deal_status_done[] = DB::table('company_info') -> select('name_company', 'status_company') -> where('id_company', '=', $id_company) -> get()[0];
+			}
+			return json_encode(["error"=>'200', 'message'=>'request successful', "company"=>$deal_status_done], JSON_UNESCAPED_UNICODE);
+		}
 	}
 }

@@ -11,12 +11,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($login, $password)
+    function index($login, $password)
     {
 		return \App\Models\User::get_user_hash($login, $password);
     }
 	
-    public function index_hash($hash)
+    function index_hash($hash)
     {
 		return \App\Models\User::get_user_hash_chek($hash);
     }
@@ -33,7 +33,10 @@ class UserController extends Controller
 		else
 			return $cookie;
     }
-	
+	public function getUserInfo($id)
+	{
+		return \App\Models\User::getUserInfo($id);
+	}
     public function Api_CheckHash(Request $request)
     {
 		if($request['hash'] == "")

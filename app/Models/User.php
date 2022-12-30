@@ -38,7 +38,15 @@ class User extends Authenticatable
 			return json_encode(["error"=>"403", "message"=>"The entered hash is not correct"]);
 		return json_encode(['error'=>'200', 'message'=>'token_valide', "userID"=>json_decode($hash_chek, true)[0]['id_users']]);
 	}
-	
+	public static function getUserInfo($id)
+	{
+		$userInfo = DB::table('user_info') ->select('name', 'surname') -> where('id_users', '=', $id) ->get();
+		if($userInfo == "[]")
+			return json_encode(["error"=>"403", "message"=>"This user has no data"]);
+		return json_encode(['error'=>'200', 'message'=>'Request successful', "userInfo"=>json_decode($userInfo, true)[0]]);
+		
+		
+	}
 	public static function get_user_list($limit, $offset)
 	{
 		$user_info[] = DB::table('user_info') ->select('id', 'name', 'surname') ->skip($offset)->take($limit) ->get();

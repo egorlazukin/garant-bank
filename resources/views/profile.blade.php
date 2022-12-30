@@ -33,25 +33,214 @@
 			a{
 				color: blue;
 			}
+			a
+			{
+				text-transform: none;
+				width: 290px;
+				min-width: 290px;
+			}
+			@media screen and (min-width: 900px) {
+				a{
+					text-transform: none;
+					width: 300px !important;
+					min-width: 300px !important;
+				}
+			}
+			
+
 		</style>
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     </head>
+	
     <body class="antialiased">
 		<center>
-			Привет <label id="name"></label> <label id="surname"></label>.
-		<br>
-		<div>
-			<button class="btn btn-primary btn-sm" href="/deal">Мои сделки (<label id="deal_all">0</label>)</button>
-			<button class="btn btn-primary btn-sm" href="/deal_success">Успешные сделки (<label id="deal_status_done">0</label>)</button>
-			<button class="btn btn-primary btn-sm" href="/deal_canceled">Ожидается выполнение сделки (<label id="deal_status_expected">0</label>)</button>
-			<button class="btn btn-primary btn-sm" href="/deal_canceled">Отмененные сделки (<label id="deal_status_canceled">0</label>)</button>
-			<button class="btn btn-primary btn-sm" href="/deal_canceled">Ожидающие отмены сделки (<label id="deal_status_waiting">0</label>)</button>
-			<button class="btn btn-primary btn-sm" href="/deal_canceled">Приостановленные сделки (<label id="deal_status_suspended">0</label>)</button>
+		<div id="main">
+			<div>
+				Привет, <label id="name_"></label> <label id="surname"></label>.	
+				<div class="container mb-4">
+					<div class="row mb-4 mt-2">
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#deal">Все сделки (<label id="deal_all">0</label>)</a>
+						</div>
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#deal_success">Успешные сделки (<label id="deal_status_done">0</label>)</a>
+						</div>
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#deal_await_completed">Ожидается выполнение сделки (<label id="deal_status_expected">0</label>)</a>
+						</div>
+						
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#deal_canceled">Отмененные сделки (<label id="deal_status_canceled">0</label>)</a>
+						</div>
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#deal_canceled_await">Ожидающие отмены сделки (<label id="deal_status_waiting">0</label>)</a>
+						</div>
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#deal_suspended">Приостановленные сделки (<label id="deal_status_suspended">0</label>)</a>
+						</div>
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#setting">Настройки</a>
+						</div>
+						<div class="col-sm mb-4">
+							<a class="btn btn-primary btn-sm" href="#deal_start_canceled">Открыть спор</a>
+						</div>
+					</div>
+					<div id="table_down">
+					</div>
+				</div>
+				
+				
+			</div>
 		</div>
 		</center>
 		<script>
+			setInterval(cheked_hash_url, 100);
+			function cheked_hash_url()
+			{
+				var hash = document.location.hash
+				if(hash != "")
+				{
+					console.log(hash)
+					switch(hash) {
+						case '#deal':
+							deal()
+							break
+						case '#deal_success':
+							deal_success()
+							break
+						case '#deal_canceled':
+							deal_canceled()
+							break
+						case '#deal_canceled_await':
+							deal_canceled_await()
+							break
+						case '#deal_suspended':
+							deal_suspended()
+							break
+						case '#deal_await_completed':
+							deal_await_completed()
+							break
+						case '#setting':
+							setting()
+							break
+						case '#deal_start_canceled':
+							deal_start_canceled()
+							break
+					}
+					document.location.hash = ""
+				}
+			}
+			async function deal()
+			{
+			
+				document.cookie.split(';').forEach(element => {
+					deal_2(element)	
+				});
+			}
+			async function deal_2(element)
+			{
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID")
+					{
+						let response = await fetch("/api/deal/all/?hash=" + element.split('=')[1]);
+						if (response.ok) {
+							let json = await response.json();
+							if(json['error'] == "200")
+							{
+								addHeaderTable()
+								var i = 0;
+								json['company'].forEach(element => {
+									
+									var elem2 = document.createElement('tr');
+									elem2.className = "tr"
+									tbody.appendChild(elem2);
+									
+									elem2 = document.createElement('th');
+									elem2.scope = "row"
+									elem2.innerHTML = i+1;    
+									document.getElementsByClassName('tr')[i].appendChild(elem2);
+									
+									elem2 = document.createElement('td');
+									elem2.innerHTML = element['name_company'];    
+									document.getElementsByClassName('tr')[i].appendChild(elem2);
+									
+									elem2 = document.createElement('td');
+									elem2.innerHTML = element['status_company'];    
+									document.getElementsByClassName('tr')[i].appendChild(elem2);
+									i++
+								});
+
+
+							}
+						}
+					}
+			}
+			function addHeaderTable()
+			{
+				var elem2 = document.createElement('table');
+				elem2.id = "table"
+				elem2.className = "table"
+				table_down.appendChild(elem2);
+				
+				elem2 = document.createElement('thead');
+				elem2.id = 'thead';
+				table.appendChild(elem2);			
+
+				elem2 = document.createElement('tr');
+				elem2.id = 'tr_up';
+				thead.appendChild(elem2);
+				
+				elem2 = document.createElement('th');
+				elem2.scope = "col"
+				elem2.innerHTML = "#"
+				tr_up.appendChild(elem2);
+				
+				elem2 = document.createElement('th');
+				elem2.scope = "col"
+				elem2.innerHTML = "Название компании"
+				tr_up.appendChild(elem2);
+				
+				elem2 = document.createElement('th');
+				elem2.scope = "col"
+				elem2.innerHTML = "Статус компании"
+				tr_up.appendChild(elem2);
+				
+				elem2 = document.createElement('tbody');
+				elem2.id = "tbody"
+				table.appendChild(elem2);
+				
+				
+				//elem2.innerHTML = element['name_company'];
+			}
+			function deal_success()
+			{
+				
+			}
+			function deal_canceled()
+			{
+				
+			}
+			function deal_canceled_await()
+			{
+				
+			}
+			function deal_suspended()
+			{
+				
+			}
+			function deal_await_completed()
+			{
+				
+			}
+			function setting()
+			{
+				
+			}
+			function deal_start_canceled()
+			{
+				
+			}
 			async function green(element) {
 				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID")
 				{
@@ -61,6 +250,7 @@
 						let json = await response.json();
 						if(json['error'] == "200")
 						{
+							getFIO(json['userID'])
 							var urls = "/api/deal/info_profile/" + json['userID']
 							let responser = await fetch(urls);
 							if (responser.ok) {
@@ -77,6 +267,19 @@
 								}
 							}
 						}
+					}
+				}
+			}
+			async function getFIO(id)
+			{
+				var urls = "/api/user/Get_Full_name/" + id
+				let responser = await fetch(urls);
+				if (responser.ok) {
+					let texter = await responser.json();
+					if(texter['error'] == "200")
+					{
+						name_.innerHTML = texter['userInfo']['name']
+						surname.innerHTML = texter['userInfo']['surname']
 					}
 				}
 			}
