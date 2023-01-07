@@ -25,13 +25,25 @@ class DealController extends Controller
 			return $userDealArray;
     }
 	
-    public function getAllDeal(Request $request)
-    {
-		if($request['hash']	== "")
+    public function get_TypeDeal1($hash, $type)
+	{
+		if($hash == "")
 		{
 			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
 		}
-		$userDealArray = \App\Models\DealModels::getListDeal($_GET['hash'], "0");
+		$userDealArray = \App\Models\DealModels::get_TypeDeal1($hash, $type);
+		if($userDealArray == null)
+			return json_encode(["error"=>"403", "message"=>"User is not found"]);
+		else
+			return $userDealArray;
+	}
+    public function getAllDeal($hash)
+    {
+		if($hash == "")
+		{
+			return json_encode(["error"=>"403", "message"=>"Not all fields entered"]);
+		}
+		$userDealArray = \App\Models\DealModels::getListDeal($hash, "0");
 		if($userDealArray == null)
 			return json_encode(["error"=>"403", "message"=>"User is not found"]);
 		else

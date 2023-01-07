@@ -99,28 +99,41 @@
 			setInterval(cheked_hash_url, 100);
 			function cheked_hash_url()
 			{
+			
 				var hash = document.location.hash
 				if(hash != "")
 				{
-					console.log(hash)
+					table_down.innerHTML = "";
 					switch(hash) {
 						case '#deal':
-							deal()
+							document.cookie.split(';').forEach(element => {
+								deal(element)	
+							});
 							break
 						case '#deal_success':
-							deal_success()
+							document.cookie.split(';').forEach(element => {
+								deal_success(element)	
+							});
 							break
 						case '#deal_canceled':
-							deal_canceled()
+							document.cookie.split(';').forEach(element => {
+								deal_canceled(element)	
+							});
 							break
 						case '#deal_canceled_await':
-							deal_canceled_await()
+							document.cookie.split(';').forEach(element => {
+								deal_canceled_await(element)	
+							});
 							break
 						case '#deal_suspended':
-							deal_suspended()
+							document.cookie.split(';').forEach(element => {
+								deal_suspended(element)	
+							});
 							break
 						case '#deal_await_completed':
-							deal_await_completed()
+							document.cookie.split(';').forEach(element => {
+								deal_await_completed(element)	
+							});
 							break
 						case '#setting':
 							setting()
@@ -132,49 +145,144 @@
 					document.location.hash = ""
 				}
 			}
-			async function deal()
+			async function deal(element)
 			{
-			
-				document.cookie.split(';').forEach(element => {
-					deal_2(element)	
-				});
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID") {
+					let response = await fetch("/api/deal/all/" + element.split('=')[1]);
+					if (response.ok) {
+						let json = await response.json();
+						if(json['error'] == "200")
+						{
+							addHeaderTable()
+							var i = 0;
+							json['company'].forEach(element => {
+								var elem2 = document.createElement('tr');
+								elem2.className = "tr"
+								tbody.appendChild(elem2);
+								elem2 = document.createElement('th');
+								elem2.scope = "row"
+								elem2.innerHTML = i+1;    
+								document.getElementsByClassName('tr')[i].appendChild(elem2);
+								elem2 = document.createElement('td');
+								elem2.innerHTML = element['name_company'];    
+								document.getElementsByClassName('tr')[i].appendChild(elem2);
+								elem2 = document.createElement('td');
+								elem2.innerHTML = element['status_company'];    
+								document.getElementsByClassName('tr')[i].appendChild(elem2);
+								i++
+							});
+						}
+					}
+				}
 			}
-			async function deal_2(element)
+			
+			function deal_success(element)
 			{
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID") {
+					GetUL(element, "0")
+				}
+			}
+			async function deal_canceled(element)
+			{
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID") {
+					GetUL(element, "2")
+				}
+			}
+			async function deal_canceled_await(element)
+			{
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID") {
+					GetUL(element, "3")
+				}
+			}
+			async function deal_suspended(element)
+			{
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID") {
+					GetUL(element, "4")
+				}
+			}
+			async function deal_await_completed(element)
+			{
+				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID") {
+					GetUL(element, "1")
+				}
+			}
+			async function setting(element)
+			{
+				
+			}
+			async function deal_start_canceled(element)
+			{
+				
+			}
+			async function green(element) {
 				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID")
-					{
-						let response = await fetch("/api/deal/all/?hash=" + element.split('=')[1]);
-						if (response.ok) {
-							let json = await response.json();
-							if(json['error'] == "200")
-							{
-								addHeaderTable()
-								var i = 0;
-								json['company'].forEach(element => {
-									
-									var elem2 = document.createElement('tr');
-									elem2.className = "tr"
-									tbody.appendChild(elem2);
-									
-									elem2 = document.createElement('th');
-									elem2.scope = "row"
-									elem2.innerHTML = i+1;    
-									document.getElementsByClassName('tr')[i].appendChild(elem2);
-									
-									elem2 = document.createElement('td');
-									elem2.innerHTML = element['name_company'];    
-									document.getElementsByClassName('tr')[i].appendChild(elem2);
-									
-									elem2 = document.createElement('td');
-									elem2.innerHTML = element['status_company'];    
-									document.getElementsByClassName('tr')[i].appendChild(elem2);
-									i++
-								});
-
-
+				{
+					var url = "/api/auth/hash/?hash=" + element.split('=')[1]
+					let response = await fetch(url);
+					if (response.ok) {
+						let json = await response.json();
+						if(json['error'] == "200")
+						{
+							getFIO(json['userID'])
+							var urls = "/api/deal/info_profile/" + json['userID']
+							let responser = await fetch(urls);
+							if (responser.ok) {
+								
+								let texter = await responser.json();
+								if(texter['error'] == "200")
+								{
+									deal_status_canceled.innerHTML = texter['deal_status_canceled']
+									deal_status_done.innerHTML = texter['deal_status_done']
+									deal_status_expected.innerHTML = texter['deal_status_expected']
+									deal_status_waiting.innerHTML = texter['deal_status_waiting']
+									deal_status_suspended.innerHTML = texter['deal_status_suspended']
+									deal_all.innerHTML = texter['deal_all']
+								}
 							}
 						}
 					}
+				}
+			}
+			async function GetUL(element, type)
+			{
+				let response = await fetch("/api/deal/get/" + element.split('=')[1] + "/" + type);
+				if (response.ok) {
+					let json = await response.json();
+					if(json['error'] == "200")
+					{
+						addHeaderTable()
+						var i = 0;
+						json['company'].forEach(element => {
+							var elem2 = document.createElement('tr');
+							elem2.className = "tr"
+							tbody.appendChild(elem2);
+							elem2 = document.createElement('th');
+							elem2.scope = "row"
+							elem2.innerHTML = i+1;    
+							document.getElementsByClassName('tr')[i].appendChild(elem2);
+							elem2 = document.createElement('td');
+							elem2.innerHTML = element['name_company'];    
+							document.getElementsByClassName('tr')[i].appendChild(elem2);
+							elem2 = document.createElement('td');
+							elem2.innerHTML = element['status_company'];    
+							document.getElementsByClassName('tr')[i].appendChild(elem2);
+							i++
+						});
+					}
+				}
+			}
+			async function getFIO(id)
+			{
+				var urls = "/api/user/Get_Full_name/" + id
+				let responser = await fetch(urls);
+				if (responser.ok) {
+					let texter = await responser.json();
+					if(texter['error'] == "200")
+					{
+						name_.innerHTML = texter['userInfo']['name']
+						surname.innerHTML = texter['userInfo']['surname']
+					}
+				}
 			}
 			function addHeaderTable()
 			{
@@ -212,76 +320,6 @@
 				
 				
 				//elem2.innerHTML = element['name_company'];
-			}
-			function deal_success()
-			{
-				
-			}
-			function deal_canceled()
-			{
-				
-			}
-			function deal_canceled_await()
-			{
-				
-			}
-			function deal_suspended()
-			{
-				
-			}
-			function deal_await_completed()
-			{
-				
-			}
-			function setting()
-			{
-				
-			}
-			function deal_start_canceled()
-			{
-				
-			}
-			async function green(element) {
-				if(element.split('=')[0] == " cookieID" || element.split('=')[0] == "cookieID")
-				{
-					var url = "/api/auth/hash/?hash=" + element.split('=')[1]
-					let response = await fetch(url);
-					if (response.ok) {
-						let json = await response.json();
-						if(json['error'] == "200")
-						{
-							getFIO(json['userID'])
-							var urls = "/api/deal/info_profile/" + json['userID']
-							let responser = await fetch(urls);
-							if (responser.ok) {
-								
-								let texter = await responser.json();
-								if(texter['error'] == "200")
-								{
-									deal_status_canceled.innerHTML = texter['deal_status_canceled']
-									deal_status_done.innerHTML = texter['deal_status_done']
-									deal_status_expected.innerHTML = texter['deal_status_expected']
-									deal_status_waiting.innerHTML = texter['deal_status_waiting']
-									deal_status_suspended.innerHTML = texter['deal_status_suspended']
-									deal_all.innerHTML = texter['deal_all']
-								}
-							}
-						}
-					}
-				}
-			}
-			async function getFIO(id)
-			{
-				var urls = "/api/user/Get_Full_name/" + id
-				let responser = await fetch(urls);
-				if (responser.ok) {
-					let texter = await responser.json();
-					if(texter['error'] == "200")
-					{
-						name_.innerHTML = texter['userInfo']['name']
-						surname.innerHTML = texter['userInfo']['surname']
-					}
-				}
 			}
 			document.cookie.split(';').forEach(element =>{  green(element)});
 		</script>

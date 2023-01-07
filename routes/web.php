@@ -11,4 +11,5 @@ Route::get('/api/auth/get_users/{limit}/{offset}/', 'App\Http\Controllers\UserCo
 Route::get('/account/{id}/',function () { return view('profile'); }); //Вывести аккаунт, передать ID пользователя.
 Route::get('/api/deal/info_profile/{id}', 'App\Http\Controllers\DealController@getUserInfo'); //страница получения всех сделок, передать ID пользователя.
 Route::get('/api/user/Get_Full_name/{id}', 'App\Http\Controllers\UserController@getUserInfo'); //страница проверки лог+пасс, передать в GET name + password, возращает токен доступа
-Route::get('/api/deal/all/', 'App\Http\Controllers\DealController@getAllDeal'); //страница запроса всех сделок, передать hash пользователя
+Route::get('/api/deal/all/{hash}/', 'App\Http\Controllers\DealController@getAllDeal'); //страница запроса всех сделок, передать hash пользователя
+Route::get('/api/deal/get/{hash}/{id_status}', 'App\Http\Controllers\DealController@get_TypeDeal1'); //страница запроса всех сделок, передать hash пользователя
