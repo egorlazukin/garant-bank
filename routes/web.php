@@ -17,4 +17,5 @@ Route::get('/api/deal/get/{hash}/{id_status}', 'App\Http\Controllers\DealControl
 Route::get('/api/company/create/', 'App\Http\Controllers\CompanyController@CreateNewCompany'); //Add new company (name_company, inn_company)
 Route::get('/api/company/info/', 'App\Http\Controllers\CompanyController@get_info_company'); //Check company (name_company, inn_company)
 Route::get('/api/company/info/{id}', 'App\Http\Controllers\CompanyController@get_info_company_id'); //Get Info Company 
+Route::get('/api/company/sears/', 'App\Http\Controllers\CompanyController@SearsCompany'); //Sears Company 
 Route::get('/company/{id}/', function () { return view('company'); }); //Public page

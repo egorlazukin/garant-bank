@@ -26,6 +26,11 @@ class CompanyModel extends Model
 		}
 		return json_encode(["error"=>"403", "message"=>"This company does not exist"]);
 	}
+	
+	public static function SearsCompany($name_company, $limit)
+	{
+		return DB::table('company_info') -> select('id', 'name_company') ->where('name_company', 'like', '%' . $name_company . '%') ->limit($limit) ->get();
+	}
 
 	public static function get_info_company_id($id)
 	{

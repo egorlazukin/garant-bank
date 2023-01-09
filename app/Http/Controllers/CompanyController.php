@@ -29,5 +29,19 @@ class CompanyController extends Controller
 		
 		return CompanyModel::get_info_company_id($get_info_company_id);
 	}
+	public function SearsCompany(Request $request)
+	{
+		if($request['name_company'] == "")
+		{
+			return ["error"=>"500"];
+		}
+		$limit = 20;
+		$arr = CompanyModel::SearsCompany($request['name_company'], $limit);
+		if (!isset($arr)) {
+			return ["error"=>"500"];
+
+		}
+		return ["error"=>"200", "return"=> $arr];
+	}
 
 }

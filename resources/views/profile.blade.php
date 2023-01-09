@@ -67,7 +67,36 @@
 					</div>
 					<div class="col-sm mb-4" style="width: 300px;">
 						<form>
-							<input type="sears" name="sears" style="width: 200px;" placeholder="Имя или ИНН">
+							<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+							<input onchange="text_ch(this)" id="ajax_phone_clients-phone" list="clients-phone" name="clients-phone" value="" required="" autocomplete="off" placeholder="Имя компании">
+							<input type="text" name="clients-id" class="form-control" autocomplete="off" maxlength="150" hidden = "true" id="id_clients-name">
+							<datalist id="clients-phone">
+							    <option value="Сбербанк" title="3">Сбербанк</option>
+							    <option value="eg" title="12">eg</option>
+								<option value="ВТБ" title="SomeText">0</option>
+							</datalist>
+							<script type="text/javascript">
+								$(document).ready(function() {
+								  $('#ajax_phone_clients-phone').on('input',function() {
+								      var opt = $('option[value="'+$(this).val()+'"]');
+								      $('#id_clients-name').val(opt.length ? opt.attr('title') : 'Пользователь не выбран') 
+								  });
+								})
+								function text_ch(element)
+								{
+									var url = "/api/company/sears/?name_company=" + element.value
+									let response = await fetch(url);
+									if (response.ok) {
+										let json = await response.json();
+										if(json['error'] == "200")
+										{
+
+										}
+									}
+									
+								}
+							</script>
 						</form>
 					</div>
 				</div>
