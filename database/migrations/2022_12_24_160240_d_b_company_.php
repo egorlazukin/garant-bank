@@ -32,6 +32,7 @@ class DBCompany extends Migration
 			Schema::create('company_other_info', function (Blueprint $table) {
 				$table->id();
 				$table->string('other_info')->nullable();
+				$table->string('photo_url')->nullable();
 				$table->bigInteger('id_company')->unsigned()->index()->nullable();
 				$table->foreign('id_company')->references('id')->on('company_unik_id')->onDelete('cascade');
 				$table->timestamps();

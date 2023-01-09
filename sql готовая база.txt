@@ -1,0 +1,315 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Хост: 127.0.0.1:3306
+-- Время создания: Янв 09 2023 г., 15:00
+-- Версия сервера: 5.7.33
+-- Версия PHP: 7.4.27
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+INSERT INTO `company_unik_id` (`id`) VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7),
+(8),
+(9),
+(10),
+(11),
+(12),
+(13),
+(14),
+(15),
+(16),
+(17),
+(18),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26),
+(27),
+(28),
+(29),
+(30),
+(31),
+(32),
+(33),
+(34),
+(35),
+(36),
+(37),
+(38),
+(39),
+(40),
+(41),
+(42);
+
+--
+-- Дамп данных таблицы `deal_unik_id`
+--
+
+INSERT INTO `deal_unik_id` (`id`) VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7),
+(8),
+(9),
+(10),
+(11),
+(12),
+(13),
+(14),
+(15),
+(16),
+(17),
+(18),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26),
+(27),
+(28),
+(29),
+(30),
+(31),
+(32),
+(33),
+(34),
+(35),
+(36),
+(37),
+(38),
+(39),
+(40),
+(41),
+(42),
+(43),
+(44),
+(45),
+(46),
+(47),
+(48),
+(49),
+(50),
+(51),
+(52),
+(53),
+(54),
+(55),
+(56),
+(57),
+(58),
+(59),
+(60),
+(61),
+(62),
+(63),
+(64),
+(65),
+(66),
+(67),
+(68),
+(69),
+(70),
+(71),
+(72),
+(73),
+(74),
+(75),
+(76),
+(77),
+(78),
+(79),
+(80),
+(81),
+(82),
+(83),
+(84),
+(85),
+(86),
+(87),
+(88),
+(89),
+(90),
+(91),
+(92),
+(93),
+(94),
+(95),
+(96),
+(97),
+(98),
+(99),
+(100),
+(101),
+(102),
+(103),
+(104),
+(105),
+(106),
+(107),
+(108),
+(109),
+(110),
+(111),
+(112),
+(113);
+
+--
+-- Дамп данных таблицы `employee_title_job`
+--
+
+
+--
+-- Дамп данных таблицы `hash_auth_private_key`
+--
+
+
+--
+-- Дамп данных таблицы `migrations`
+--
+
+
+
+--
+-- Дамп данных таблицы `user_unik_id`
+--
+
+INSERT INTO `user_unik_id` (`id`) VALUES
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7),
+(8),
+(9),
+(10),
+(11),
+(12),
+(13),
+(14),
+(15),
+(16),
+(17),
+(18),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25);
+COMMIT;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- База данных: `laravel`
+--
+
+--
+-- Дамп данных таблицы `company_info`
+--
+
+--
+-- Дамп данных таблицы `company_other_info`
+--
+
+INSERT INTO `company_other_info` (`id`, `other_info`, `photo_url`, `id_company`, `created_at`, `updated_at`) VALUES
+(1, 'Привет1', 'https://upload.wikimedia.org/wikipedia/ru/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png', 2, '2023-01-09 07:15:31', '2023-01-09 07:15:31');
+
+--
+-- Дамп данных таблицы `company_unik_id`
+--
+
+
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `company_info` (`id`, `status_company`, `name_company`, `inn_company`, `id_company`, `created_at`, `updated_at`) VALUES
+(2, 'ООО', 'Cruel', '12312312312312', 2, NULL, NULL),
+(3, 'ИП', 'Backyard', '123123321312', 3, NULL, NULL),
+(4, 'ИП', 'Influential', '123123321312', 4, NULL, NULL),
+(5, 'ИП', 'Agility', '123123321312', 5, NULL, NULL),
+(6, 'ИП', 'Vibration Velocity', '123123321312', 6, NULL, NULL),
+(7, 'ИП', 'Resolute', '123123321312', 7, NULL, NULL),
+(8, 'ИП', 'Knowledgeable', '123123321312', 8, NULL, NULL),
+(9, 'ИП', 'Fatal', '123123321312', 9, NULL, NULL),
+(10, 'ИП', 'Potent', '123123321312', 10, NULL, NULL),
+(20, 'Компания', 'Awesome', '1111111111', 41, '2023-01-09 03:50:08', '2023-01-09 03:50:08'),
+(21, 'Физическое лицо', 'Физ', '111111111111', 1, '2023-01-09 03:52:52', '2023-01-09 03:52:52');
+
+--
+-- Дамп данных таблицы `deal_status`
+--
+
+INSERT INTO `deal_status` (`id`, `status_deal`, `id_deal`, `created_at`, `updated_at`) VALUES
+(1, '0', 1, NULL, NULL),
+(2, '4', 2, NULL, NULL);
+
+--
+-- Дамп данных таблицы `deal_us_com`
+--
+
+INSERT INTO `deal_us_com` (`id`, `id_users`, `id_company`, `id_deal`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, NULL, NULL),
+(2, 1, 2, 2, NULL, NULL);
+
+--
+-- Дамп данных таблицы `employee_company`
+--
+
+INSERT INTO `employee_company` (`id`, `id_users`, `id_company`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, '2023-01-09 09:58:05', '2023-01-09 09:58:05'),
+(2, 2, 2, '2023-01-09 09:58:05', '2023-01-09 09:58:05');
+INSERT INTO `employee_title_job` (`id`, `employee_title_job`, `id_employee_company`, `created_at`, `updated_at`) VALUES
+(1, 'Программист', 1, NULL, NULL),
+(2, 'Контент-менеджер', 2, NULL, NULL);
+INSERT INTO `hash_auth_private_key` (`id`, `id_users`, `hash_login`, `created_at`, `updated_at`) VALUES
+(1, 1, '82A9A4CE-40EF-D339-C229-DC2C1FA03AD6', '2023-01-09 02:39:00', '2023-01-09 02:39:00');
+INSERT INTO `user_auth_info` (`id`, `id_users`, `login`, `password`, `created_at`, `updated_at`) VALUES
+(1, 1, 'admin', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', '2022-12-29 06:37:54', '2022-12-29 06:37:54'),
+(2, 2, 'w1', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', '2022-12-29 06:37:54', '2022-12-29 06:37:54'),
+(3, 3, 'w2', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', '2022-12-29 06:37:54', '2022-12-29 06:37:54'),
+(4, 4, 'w3', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', '2022-12-29 06:37:54', '2022-12-29 06:37:54'),
+(5, 5, 'w4', '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq', '2022-12-29 06:37:54', '2022-12-29 06:37:54');
+INSERT INTO `user_info` (`id`, `id_users`, `name`, `surname`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Egor', 'Lazukin', '2022-12-30 06:03:19', '2022-12-30 06:03:24'),
+(2, 2, 'Andrey', 'Smirnov', '2022-12-30 06:03:19', '2022-12-30 06:03:19'),
+(3, 3, 'Максим', 'Носков', NULL, NULL),
+(4, 4, 'Лавр', 'Уваров', NULL, NULL),
+(5, 5, 'Гаянэ', 'Доронин', NULL, NULL),
+(6, 6, 'Адольф', 'Горбунов', NULL, NULL),
+(7, 7, 'Августин', 'Мухин', NULL, NULL),
+(8, 8, 'Лавр', 'Семёнов', NULL, NULL),
+(9, 9, 'Герман', 'Галкин', NULL, NULL),
+(10, 10, 'Ян', 'Герасимов', NULL, NULL),
+(11, 11, 'Егор', 'Горбунов', NULL, NULL),
+(12, 12, 'Эрнест', 'Шашков', NULL, NULL),
+(13, 13, 'Мирослав', 'Ширяев', NULL, NULL),
+(14, 14, 'Виссарион', 'Михеев', NULL, NULL);
