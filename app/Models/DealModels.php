@@ -54,7 +54,7 @@ class DealModels extends Model
 		foreach ($deal_status_all as &$value) {
 			$id_company = json_decode(json_encode($value), true)['id_company'];
 			$deal_status_done[] = DB::table('company_info') -> 
-			select('name_company', 'status_company') -> where('id_company', '=', $id_company) -> get()[0];
+			select('name_company', 'status_company', 'id_company') -> where('id_company', '=', $id_company) -> get()[0];
 		}
 		return json_encode(["error"=>'200', 'message'=>'request successful', "company"=>$deal_status_done], JSON_UNESCAPED_UNICODE);
 	}

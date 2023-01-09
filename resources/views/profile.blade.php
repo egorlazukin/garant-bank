@@ -206,7 +206,7 @@
 					GetUL(element, "1")
 				}
 			}
-			async function setting(element)
+			async function setting()
 			{
 				
 			}
@@ -230,7 +230,7 @@
 								
 								let texter = await responser.json();
 								if(texter['error'] == "200")
-								{
+								{										
 									deal_status_canceled.innerHTML = texter['deal_status_canceled']
 									deal_status_done.innerHTML = texter['deal_status_done']
 									deal_status_expected.innerHTML = texter['deal_status_expected']
