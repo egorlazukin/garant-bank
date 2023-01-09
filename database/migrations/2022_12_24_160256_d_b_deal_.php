@@ -23,13 +23,13 @@ class DBDeal extends Migration
 				$table->id();
 				
 				//------------------
-				$table->bigInteger('id_users')->unsigned()->index()->nullable();
+				$table->bigInteger('id_users')->unsigned()->index();
 				$table->foreign('id_users')->references('id')->on('user_unik_id')->onDelete('cascade');
-				$table->bigInteger('id_company')->unsigned()->index()->nullable();
+				$table->bigInteger('id_company')->unsigned()->index();
 				$table->foreign('id_company')->references('id')->on('company_unik_id')->onDelete('cascade');
 				//------------------
 				
-				$table->bigInteger('id_deal')->unsigned()->index()->nullable();
+				$table->bigInteger('id_deal')->unsigned()->index()->unique();
 				$table->foreign('id_deal')->references('id')->on('deal_unik_id')->onDelete('cascade');
 				$table->timestamps();
 			}); 

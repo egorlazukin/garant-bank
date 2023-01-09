@@ -57,6 +57,21 @@
     <body class="antialiased">
 		<center>
 		<div id="main">
+			<div class="container mb-2">
+				<div class="row mb-2 mt-2">
+					<div class="col-sm mb-4" style="width: 300px;">
+						<a class="btn btn-primary btn-sm" href="" style="width: 300px;">Мой аккаунт</a>
+					</div>
+					<div class="col-sm mb-4" >
+						<a class="btn btn-primary btn-sm" href="" style="width: 300px;">Создать новую сделку</a>
+					</div>
+					<div class="col-sm mb-4" style="width: 300px;">
+						<form>
+							<input type="sears" name="sears" style="width: 200px;" placeholder="Имя или ИНН">
+						</form>
+					</div>
+				</div>
+			</div>
 			<div>
 				Привет, <label id="name_"></label> <label id="surname"></label>.	
 				<div class="container mb-4">

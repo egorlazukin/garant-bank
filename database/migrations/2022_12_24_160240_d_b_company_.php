@@ -24,7 +24,7 @@ class DBCompany extends Migration
 				$table->string('status_company')->nullable();
 				$table->string('name_company')->nullable();
 				$table->string('inn_company')->nullable();
-				$table->bigInteger('id_company')->unsigned()->index()->nullable();
+				$table->bigInteger('id_company')->unsigned()->index()->nullable()->unique();
 				$table->foreign('id_company')->references('id')->on('company_unik_id')->onDelete('cascade');
 				$table->timestamps();
 			}); 

@@ -29,11 +29,11 @@ class DBEmployee extends Migration
 		if (Schema::hasTable('employee_title_job') == false)
 			Schema::create('employee_title_job', function (Blueprint $table) {
 				$table->id();
-				$table->string('status_deal')->nullable();
+				$table->string('employee_title_job')->nullable();
 				
 				//------------------
-				$table->bigInteger('employee_title_job')->unsigned()->index()->nullable();
-				$table->foreign('employee_title_job')->references('id')->on('employee_company')->onDelete('cascade');
+				$table->bigInteger('id_employee_company')->unsigned()->index()->nullable();
+				$table->foreign('id_employee_company')->references('id')->on('employee_company')->onDelete('cascade');
 				//------------------
 				$table->timestamps();
 			}); 

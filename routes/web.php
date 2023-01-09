@@ -13,3 +13,8 @@ Route::get('/api/deal/info_profile/{id}', 'App\Http\Controllers\DealController@g
 Route::get('/api/user/Get_Full_name/{id}', 'App\Http\Controllers\UserController@getUserInfo'); //страница проверки лог+пасс, передать в GET name + password, возращает токен доступа
 Route::get('/api/deal/all/{hash}/', 'App\Http\Controllers\DealController@getAllDeal'); //страница запроса всех сделок, передать hash пользователя
 Route::get('/api/deal/get/{hash}/{id_status}', 'App\Http\Controllers\DealController@get_TypeDeal1'); //страница запроса всех сделок, передать hash пользователя
+
+Route::get('/api/company/create/', 'App\Http\Controllers\CompanyController@CreateNewCompany'); //Add new company (name_company, inn_company)
+Route::get('/api/company/info/', 'App\Http\Controllers\CompanyController@get_info_company'); //Check company (name_company, inn_company)
+Route::get('/api/company/info/{id}', 'App\Http\Controllers\CompanyController@get_info_company_id'); //Get Info Company 
+Route::get('/company/{id}/', function () { return view('company'); }); //Public page
