@@ -63,7 +63,7 @@
 						<a class="btn btn-primary btn-sm" href="/" style="width: 300px;">Мой аккаунт</a>
 					</div>
 					<div class="col-sm mb-4" >
-						<a class="btn btn-primary btn-sm" href="" style="width: 300px;">Создать новую сделку</a>
+						<a class="btn btn-primary btn-sm" href="/newDeal" style="width: 300px;">Создать новую сделку</a>
 					</div>
 					<div class="col-sm mb-4" style="width: 300px;">
 						<form>
